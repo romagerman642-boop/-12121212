@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PIGEON S - Доставка піци та їжі</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="top-ticker">
+        <div class="ticker-track">
+            <div class="ticker-item">⚡ БЕЗКОШТОВНА ДОСТАВКА ВІД 400 ГРН! <span>АКЦІЯ</span></div>
+            <div class="ticker-item">🍕 ЗНИЖКА -20% НА ДРУГУ ПІЦУ В ЧЕТВЕР! <span>ПРОМО</span></div>
+            <div class="ticker-item">🚀 ДОСТАВКА ЗА 30 ХВИЛИН АБО ПІЦА В ДАРУНОК! <span>ГАРАНТІЯ</span></div>
+            <div class="ticker-item">⚡ БЕЗКОШТОВНА ДОСТАВКА ВІД 400 ГРН! <span>АКЦІЯ</span></div>
+            <div class="ticker-item">🍕 ЗНИЖКА -20% НА ДРУГУ ПІЦУ В ЧЕТВЕР! <span>ПРОМО</span></div>
+        </div>
+    </div>
+
+    <header>
+        <div class="header-container">
+            <a href="#" class="logo">
+                <div class="logo-icon">🕊️</div>
+                PIGEON S
+            </a>
+            <ul class="nav-links">
+                <li><a href="#pizza" class="nav-link">Піца</a></li>
+                <li><a href="#sides" class="nav-link">Закуски</a></li>
+                <li><a href="#drinks" class="nav-link">Напої</a></li>
+                <li><a href="#desserts" class="nav-link">Десерти</a></li>
+            </ul>
+            <div class="header-actions">
+                <button class="cart-btn" id="cartBtn">
+                    🛒 Кошик <span class="cart-badge" id="cartCount">0</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div class="hero-carousel">
+        <div class="slide slide-1 active">
+            <div class="slide-content">
+                <span class="badge-promo">Хіт продажів</span>
+                <h2 class="slide-title">Супер М'ясна Піца</h2>
+                <p class="slide-desc">Соковита шинка, пепероні, баварські ковбаски та подвійний сир моцарела.</p>
+                <button class="btn-cta" onclick="quickAdd('Пепероні Класік', 249)">Замовити зараз за 249 грн</button>
+            </div>
+        </div>
+        <div class="slide slide-2">
+            <div class="slide-content">
+                <span class="badge-promo">Пропозиція тижня</span>
+                <h2 class="slide-title">Комбо "Вечірка"</h2>
+                <p class="slide-desc">3 великі піци на вибір + 2 літри Коли за вигідною ціною!</p>
+                <button class="btn-cta" onclick="openModal('PARTY30')">Отримати промокод</button>
+            </div>
+        </div>
+        <div class="slide slide-3">
+            <div class="slide-content">
+                <span class="badge-promo">Новинка</span>
+                <h2 class="slide-title">Сирний Божевільний Край</h2>
+                <p class="slide-desc">Спробуй нову піцу з ніжним тягучим сиром у бортиках.</p>
+                <button class="btn-cta" onclick="quickAdd('4 Сири Преміум', 289)">Вибрати піцу</button>
+            </div>
+        </div>
+        <div class="carousel-dots">
+            <span class="dot active" onclick="setSlide(0)"></span>
+            <span class="dot" onclick="setSlide(1)"></span>
+            <span class="dot" onclick="setSlide(2)"></span>
+        </div>
+    </div>
+
+    <div class="promo-grid">
+        <div class="promo-card" onclick="openModal('PIGEON20')">
+            <div class="promo-icon">🎁</div>
+            <div class="promo-info">
+                <h4>-20% на перше замовлення</h4>
+                <p>Натисніть, щоб скопіювати код</p>
+            </div>
+        </div>
+        <div class="promo-card" onclick="openModal('FREEFLY')">
+            <div class="promo-icon">🛵</div>
+            <div class="promo-info">
+                <h4>Безкоштовна доставка</h4>
+                <p>Для замовлень від 400 грн</p>
+            </div>
+        </div>
+        <div class="promo-card" onclick="openModal('2PLUS1')">
+            <div class="promo-icon">🔥</div>
+            <div class="promo-info">
+                <h4>1+1 = 3 на всі закуски</h4>
+                <p>Акція діє до кінця тижня</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="categories-wrapper">
+        <div class="categories-container">
+            <button class="cat-btn active" onclick="filterCategory('all')">🍕 Все меню</button>
+            <button class="cat-btn" onclick="filterCategory('pizza')">🍕 Піца</button>
+            <button class="cat-btn" onclick="filterCategory('sides')">🍗 Закуски</button>
+            <button class="cat-btn" onclick="filterCategory('drinks')">🥤 Напої</button>
+            <button class="cat-btn" onclick="filterCategory('desserts')">🍰 Десерти</button>
+            <button class="cat-btn" onclick="filterCategory('sauces')">🧄 Соуси</button>
+        </div>
+    </div>
+
+    <main class="menu-section">
+        <h3 class="section-title">Меню</h3>
+        <div class="products-grid" id="productsGrid">
+            <!-- Товари генеруються через JavaScript -->
+        </div>
+    </main>
+
+    <div class="discount-wheel-btn" onclick="openModal('SECRET50')">🎁</div>
+
+    <!-- Модальне вікно кошика -->
+    <div class="modal-overlay" id="cartModal">
+        <div class="modal-box cart-modal-box">
+            <span class="modal-close" onclick="closeCartModal()">✕</span>
+            <h3 class="modal-title">Ваше замовлення</h3>
+            <div class="cart-items-list" id="cartItemsList">
+                <!-- Елементи кошика -->
+            </div>
+            <div class="cart-total-box">
+                <span>Разом:</span>
+                <span id="cartTotalPrice">0 грн</span>
+            </div>
+            <button class="btn-cta checkout-btn" onclick="checkout()">Оформити замовлення</button>
+        </div>
+    </div>
+
+    <!-- Модальне вікно промокодів -->
+    <div class="modal-overlay" id="promoModal">
+        <div class="modal-box">
+            <span class="modal-close" onclick="closeModal()">✕</span>
+            <div class="promo-badge-lg">🎉</div>
+            <h3 class="modal-title">Твій промокод!</h3>
+            <p class="modal-desc">Використай цей код під час оформлення замовлення:</p>
+            <input type="text" class="promo-code-input" id="promoCodeVal" readonly value="PIGEON20">
+            <button class="btn-cta" style="width: 100%; justify-content: center;" onclick="copyAndClose()">Скопіювати та закрити</button>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-col">
+                <h5>PIGEON S</h5>
+                <ul>
+                    <li><a href="#">Про нас</a></li>
+                    <li><a href="#">Новини</a></li>
+                    <li><a href="#">Вакансії</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h5>Допомога</h5>
+                <ul>
+                    <li><a href="#">Умови доставки</a></li>
+                    <li><a href="#">Оплата</a></li>
+                    <li><a href="#">Контакти</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">© 2026 PIGEON S. Всі права захищені.</div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
